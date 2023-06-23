@@ -1,4 +1,4 @@
-import { fetchAndParseWhitelistFile, generateRoot } from "../utils";
+import { fetchAndParseWhitelistFile, generateProof } from "../utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -6,15 +6,22 @@ export async function GET(req: NextRequest) {
     const params = req.nextUrl.searchParams;
     const address = params.get("address");
 
-    if (!address || typeof address !== "string") {
-      return NextResponse.json({ error: "no adress in query", status: 400 });
+    if (!address) {
+      return NextResponse.json({ error: "no address in query", status: 400 });
     }
 
     const whitelist = await fetchAndParseWhitelistFile();
 
-    const merkleRoot = generateRoot(whitelist.map((user) => user.address));
+    const proofResult = generateProof(
+      whitelist.map((user) => user.address),
+      address
+    );
 
-    return NextResponse.json({ data: merkleRoot, status: 200 });
+    if (!proofResult.proof) {
+      return NextResponse.json({ error: proofResult.error, status: 404 });
+    }
+
+    return NextResponse.json({ data: proofResult.proof, status: 200 });
   } catch (error) {
     return NextResponse.json({ error: JSON.stringify(error), status: 500 });
   }

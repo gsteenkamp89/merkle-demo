@@ -61,11 +61,15 @@ export function generateRoot(addresses: string[]) {
 }
 
 export function generateProof(addresses: string[], addressToCheck: string) {
-  const leaves = addresses.map((address) => ethers.keccak256(address));
-  const trie = new MerkleTree(leaves, ethers.keccak256, {
-    sortLeaves: true,
-    sortPairs: true,
-  });
-  const proof = trie.getHexProof(ethers.keccak256(addressToCheck));
-  return proof;
+  try {
+    const leaves = addresses.map((address) => ethers.keccak256(address));
+    const trie = new MerkleTree(leaves, ethers.keccak256, {
+      sortLeaves: true,
+      sortPairs: true,
+    });
+    const proof = trie.getHexProof(ethers.keccak256(addressToCheck));
+    return { proof };
+  } catch (error) {
+    return { error: "user not in whitelist" };
+  }
 }
