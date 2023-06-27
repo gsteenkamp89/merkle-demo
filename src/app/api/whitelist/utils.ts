@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { MerkleTree } from "merkletreejs";
-import { ethers } from "ethers";
 import path from "path";
 import { promises as fs } from "fs";
+import { keccak256, toHex } from "viem";
 
 export const WhitelistSchema = z.array(
   z.object({
@@ -51,8 +51,8 @@ export const fetchAndParseWhitelistFile = async () => {
 };
 
 export function generateRoot(addresses: string[]) {
-  const leaves = addresses.map((address) => ethers.keccak256(address));
-  const trie = new MerkleTree(leaves, ethers.keccak256, {
+  const leaves = addresses.map((address) => keccak256(toHex(address)));
+  const trie = new MerkleTree(leaves, keccak256, {
     sortLeaves: true,
     sortPairs: true,
   });
@@ -62,12 +62,12 @@ export function generateRoot(addresses: string[]) {
 
 export function generateProof(addresses: string[], addressToCheck: string) {
   try {
-    const leaves = addresses.map((address) => ethers.keccak256(address));
-    const trie = new MerkleTree(leaves, ethers.keccak256, {
+    const leaves = addresses.map((address) => keccak256(toHex(address)));
+    const trie = new MerkleTree(leaves, keccak256, {
       sortLeaves: true,
       sortPairs: true,
     });
-    const proof = trie.getHexProof(ethers.keccak256(addressToCheck));
+    const proof = trie.getHexProof(keccak256(toHex(addressToCheck)));
     return { proof };
   } catch (error) {
     return { error: "user not in whitelist" };
