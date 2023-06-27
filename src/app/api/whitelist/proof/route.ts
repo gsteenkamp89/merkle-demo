@@ -27,8 +27,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-export interface MerkleProofResponse {
+export interface MerkleProofResponse extends Response {
   data: string[] | undefined;
-  status: string;
   error: string | undefined;
 }

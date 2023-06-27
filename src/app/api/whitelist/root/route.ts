@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { fetchAndParseWhitelistFile, generateRoot } from "../utils";
 import { NextResponse } from "next/server";
 
@@ -14,8 +13,7 @@ export async function GET(req: Request) {
   }
 }
 
-export interface MerkleRootResponse {
+export interface MerkleRootResponse extends Response {
   data: string | undefined;
-  status: string;
   error: string | undefined;
 }
