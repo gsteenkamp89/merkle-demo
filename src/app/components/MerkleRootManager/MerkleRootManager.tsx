@@ -38,7 +38,11 @@ export const MerkleRootManager = ({
       <p style={{ color: synced ? "green" : "red" }}>
         {synced ? "synced" : "not synced"}
       </p>
-      {!synced && <button onClick={handleSync}>Sync whitelist</button>}
+      {!synced && (
+        <button className={styles.syncButton} onClick={handleSync}>
+          Sync whitelist
+        </button>
+      )}
     </div>
   );
 };

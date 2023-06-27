@@ -9,3 +9,11 @@
   border: 1px solid rgba(1, 65, 255, 0.2);
   border-radius: 12px;
 }
+
+.syncButton {
+  border-radius: 12px;
+  color: white;
+  padding: 8px;
+  border: 1px solid #0071ff33;
+  background-color: transparent;
+}
