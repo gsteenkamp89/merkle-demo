@@ -10,7 +10,7 @@ interface ConnectButtonProps extends ComponentProps<"button"> {
   className?: string;
 }
 
-export const ConnectButton = ({ className }: ConnectButtonProps) => {
+export const ConnectButton = ({ className, ...props }: ConnectButtonProps) => {
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
   const { data: ensName } = useEnsName({ address });
@@ -28,8 +28,9 @@ export const ConnectButton = ({ className }: ConnectButtonProps) => {
 
   return (
     <button
-      className={`${styles.ConnectButton} ${className}`}
+      className={`${styles.connectButton} ${className}`}
       onClick={handleClick}
+      {...props}
     >
       {isConnected
         ? `${ensName ?? truncateEthAddress(address)}`

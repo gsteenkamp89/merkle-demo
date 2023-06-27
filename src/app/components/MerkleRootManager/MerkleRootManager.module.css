@@ -1,0 +1,11 @@
+.merkleRootManager {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid rgba(1, 65, 255, 0.2);
+  border-radius: 12px;
+}
