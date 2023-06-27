@@ -1,3 +1,4 @@
+import { Hex } from "viem";
 import { fetchAndParseWhitelistFile, generateRoot } from "../utils";
 import { NextResponse } from "next/server";
 
@@ -14,6 +15,6 @@ export async function GET(req: Request) {
 }
 
 export interface MerkleRootResponse extends Response {
-  data: string | undefined;
+  data: Hex | undefined;
   error: string | undefined;
 }

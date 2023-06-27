@@ -4,10 +4,13 @@ import { ComponentProps } from "react";
 import styles from "./MerkleRootManager.module.css";
 import {
   useContractMerkleRoot,
+  useSetContractMerkleRoot,
   useWhitelistMerkleRoot,
 } from "~/app/hooks/whitelist";
 
-interface MerkleRootManagerProps extends ComponentProps<"div"> {}
+interface MerkleRootManagerProps extends ComponentProps<"div"> {
+  className?: string;
+}
 
 export const MerkleRootManager = ({
   className,
@@ -15,9 +18,17 @@ export const MerkleRootManager = ({
 }: MerkleRootManagerProps) => {
   const { data: whitelistRoot } = useWhitelistMerkleRoot();
   const { data: contractMerkleRoot } = useContractMerkleRoot();
+  const { write } = useSetContractMerkleRoot();
   const synced = contractMerkleRoot === whitelistRoot;
 
-  const handleSync = () => {};
+  const handleSync = () => {
+    if (!write || !whitelistRoot?.data) {
+      return;
+    }
+    write({
+      args: [whitelistRoot.data],
+    });
+  };
 
   return (
     <div className={`${styles.merkleRootManager} ${className}`} {...props}>

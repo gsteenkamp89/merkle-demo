@@ -2,7 +2,7 @@ import { z } from "zod";
 import { MerkleTree } from "merkletreejs";
 import path from "path";
 import { promises as fs } from "fs";
-import { keccak256, toHex } from "viem";
+import { Hex, keccak256, toHex } from "viem";
 
 export const WhitelistSchema = z.array(
   z.object({
@@ -57,7 +57,7 @@ export function generateRoot(addresses: string[]) {
     sortPairs: true,
   });
   const root = trie.getHexRoot();
-  return root;
+  return root as Hex;
 }
 
 export function generateProof(addresses: string[], addressToCheck: string) {
@@ -67,7 +67,7 @@ export function generateProof(addresses: string[], addressToCheck: string) {
       sortLeaves: true,
       sortPairs: true,
     });
-    const proof = trie.getHexProof(keccak256(toHex(addressToCheck)));
+    const proof = trie.getHexProof(keccak256(toHex(addressToCheck))) as Hex[];
     return { proof };
   } catch (error) {
     return { error: "user not in whitelist" };
