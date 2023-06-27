@@ -8,7 +8,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 );
 
 export const config = createConfig({
-  autoConnect: false,
+  autoConnect: true,
   publicClient,
   webSocketPublicClient,
 });
