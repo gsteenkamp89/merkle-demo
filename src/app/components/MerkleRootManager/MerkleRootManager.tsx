@@ -23,7 +23,7 @@ export const MerkleRootManager = ({
   const synced = contractMerkleRoot === whitelistRoot;
 
   const handleSync = () => {
-    if (!write || !whitelistRoot?.data) {
+    if (!whitelistRoot?.data) {
       return;
     }
     write({
