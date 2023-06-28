@@ -18,7 +18,7 @@ export const MerkleRootManager = ({
 }: MerkleRootManagerProps) => {
   const { data: whitelistRoot } = useWhitelistMerkleRoot();
   const { data: contractMerkleRoot } = useContractMerkleRoot();
-  const { write } = useSetContractMerkleRoot();
+  const { write, isLoading, isSuccess } = useSetContractMerkleRoot();
   const synced = contractMerkleRoot === whitelistRoot;
 
   const handleSync = () => {
@@ -39,8 +39,12 @@ export const MerkleRootManager = ({
         {synced ? "synced" : "not synced"}
       </p>
       {!synced && (
-        <button className={styles.syncButton} onClick={handleSync}>
-          Sync whitelist
+        <button
+          disabled={isLoading}
+          className={styles.syncButton}
+          onClick={handleSync}
+        >
+          {isLoading ? "busy..." : "Sync whitelist"}
         </button>
       )}
     </div>

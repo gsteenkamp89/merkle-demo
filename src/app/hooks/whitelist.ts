@@ -15,7 +15,6 @@ export const useContractMerkleRoot = () => {
     abi: whitelistedContractAbi,
     functionName: "merkleRoot",
     chainId: 5,
-    enabled: window !== undefined,
   });
 };
 
