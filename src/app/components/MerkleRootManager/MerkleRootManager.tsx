@@ -7,6 +7,7 @@ import {
   useSetContractMerkleRoot,
   useWhitelistMerkleRoot,
 } from "~/app/hooks/whitelist";
+import { truncateEthAddress } from "~/app/web3/utils";
 
 interface MerkleRootManagerProps extends ComponentProps<"div"> {
   className?: string;
@@ -33,8 +34,8 @@ export const MerkleRootManager = ({
   return (
     <div className={`${styles.merkleRootManager} ${className}`} {...props}>
       <h3>Merkle Root Manager</h3>
-      <p>from contract: {contractMerkleRoot}</p>
-      <p>from whitelist: {whitelistRoot?.data}</p>
+      <p>from contract: {truncateEthAddress(contractMerkleRoot)}</p>
+      <p>from whitelist: {truncateEthAddress(whitelistRoot?.data)}</p>
       <p style={{ color: synced ? "green" : "red" }}>
         {synced ? "synced" : "not synced"}
       </p>
