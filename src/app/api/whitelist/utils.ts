@@ -44,7 +44,7 @@ export const fetchAndParseWhitelistFile = async () => {
 
   const parsed = parseWhitelistFile(file);
   if (parsed.error) {
-    throw new Error(parsed.error.toString());
+    throw new Error("Validation Error");
   } else {
     return parsed.data;
   }
@@ -72,4 +72,18 @@ export function generateProof(addresses: string[], addressToCheck: string) {
   } catch (error) {
     return { error: "user not in whitelist" };
   }
+}
+
+export interface ErrorWithMessage extends Error {
+  message: string;
+}
+
+// type predicate to keep TS happy
+export function isErrorWithMessage(error: unknown): error is ErrorWithMessage {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "message" in error &&
+    typeof (error as Record<string, unknown>).message === "string"
+  );
 }

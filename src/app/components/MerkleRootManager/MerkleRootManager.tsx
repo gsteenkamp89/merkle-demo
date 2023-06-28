@@ -31,15 +31,28 @@ export const MerkleRootManager = ({
     });
   };
 
+  const isValidationError = whitelistRoot?.error
+    ?.toLowerCase()
+    ?.includes("validation");
+
   return (
     <div className={`${styles.merkleRootManager} ${className}`} {...props}>
       <h3>Merkle Root Manager</h3>
-      <p>from contract: {truncateEthAddress(contractMerkleRoot)}</p>
-      <p>from whitelist: {truncateEthAddress(whitelistRoot?.data)}</p>
-      <p style={{ color: synced ? "green" : "red" }}>
-        {synced ? "synced" : "not synced"}
-      </p>
-      {!synced && (
+      <div className={styles.container}>
+        <p>Contract: {truncateEthAddress(contractMerkleRoot)}</p>
+        <span style={{ fontSize: "2em", color: synced ? "green" : "red" }}>
+          {synced ? "=" : "≠"}
+        </span>
+        <p>Whitelist: {truncateEthAddress(whitelistRoot?.data)}</p>
+      </div>
+
+      {isValidationError && (
+        <p className={styles.error}>Error parsing whitelist file</p>
+      )}
+
+      {synced ? (
+        <h2>Synced ✅</h2>
+      ) : (
         <button
           disabled={isLoading}
           className={styles.syncButton}

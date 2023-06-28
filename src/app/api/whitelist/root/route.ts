@@ -1,5 +1,9 @@
 import { Hex } from "viem";
-import { fetchAndParseWhitelistFile, generateRoot } from "../utils";
+import {
+  fetchAndParseWhitelistFile,
+  generateRoot,
+  isErrorWithMessage,
+} from "../utils";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
@@ -10,6 +14,10 @@ export async function GET(req: Request) {
 
     return NextResponse.json({ data: merkleRoot, status: 200 });
   } catch (error) {
+    // any validation errors from Zod will be caught here
+    if (isErrorWithMessage(error)) {
+      return NextResponse.json({ error: error.message, status: 500 });
+    }
     return NextResponse.json({ error: JSON.stringify(error), status: 500 });
   }
 }

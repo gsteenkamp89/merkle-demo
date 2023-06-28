@@ -6,7 +6,7 @@
   justify-content: flex-start;
   gap: 12px;
   padding: 12px;
-  border: 1px solid rgba(1, 65, 255, 0.2);
+  border: 1px solid rgba(1, 65, 255, 0.574);
   border-radius: 12px;
 }
 
@@ -14,11 +14,21 @@
   border-radius: 12px;
   color: white;
   padding: 8px;
-  border: 1px solid #0071ff33;
+  border: 1px solid #0073ffa5;
   background-color: transparent;
 }
 
 .syncButton:disabled {
   color: grey;
   cursor: not-allowed;
+}
+
+.error {
+  color: orange;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
