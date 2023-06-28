@@ -1,3 +1,4 @@
+import { Hex } from "viem";
 import { fetchAndParseWhitelistFile, generateProof } from "../utils";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -27,8 +28,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-export interface MerkleProofResponse {
-  data: string[] | undefined;
-  status: string;
+export interface MerkleProofResponse extends Response {
+  data: Hex[] | undefined;
   error: string | undefined;
 }

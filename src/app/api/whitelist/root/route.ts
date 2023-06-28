@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { Hex } from "viem";
 import { fetchAndParseWhitelistFile, generateRoot } from "../utils";
 import { NextResponse } from "next/server";
 
@@ -14,8 +14,7 @@ export async function GET(req: Request) {
   }
 }
 
-export interface MerkleRootResponse {
-  data: string | undefined;
-  status: string;
+export interface MerkleRootResponse extends Response {
+  data: Hex | undefined;
   error: string | undefined;
 }
