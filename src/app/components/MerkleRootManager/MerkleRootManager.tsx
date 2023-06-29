@@ -19,8 +19,8 @@ export const MerkleRootManager = ({
 }: MerkleRootManagerProps) => {
   const { data: whitelistRoot } = useWhitelistMerkleRoot();
   const { data: contractMerkleRoot } = useContractMerkleRoot();
-  const { write, isLoading, isSuccess } = useSetContractMerkleRoot();
-  const synced = contractMerkleRoot === whitelistRoot;
+  const { write, isLoading } = useSetContractMerkleRoot();
+  const synced = contractMerkleRoot === whitelistRoot?.data;
 
   const handleSync = () => {
     if (!whitelistRoot?.data) {

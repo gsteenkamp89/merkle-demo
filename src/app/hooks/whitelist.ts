@@ -11,7 +11,7 @@ export const useWhitelistMerkleRoot = () => {
 
 export const useContractMerkleRoot = () => {
   return useContractRead({
-    address: "0x828DA3378891Df13d578D841adbEf8863E667051",
+    address: "0x4c01896e63AB221CD99A406D2F617ad9135F44b4",
     abi: whitelistedContractAbi,
     functionName: "merkleRoot",
     chainId: 5,
@@ -20,7 +20,7 @@ export const useContractMerkleRoot = () => {
 
 export const useSetContractMerkleRoot = () => {
   return useContractWrite({
-    address: "0x828DA3378891Df13d578D841adbEf8863E667051",
+    address: "0x4c01896e63AB221CD99A406D2F617ad9135F44b4",
     abi: whitelistedContractAbi,
     functionName: "setMerkleRoot",
   });
